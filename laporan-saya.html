@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Saya - Smart Lost & Found Polmed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-20 md:pb-0">
+
+    <!-- NAVBAR -->
+    <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2">
+            <a href="assets/img/index.html" class="flex items-center gap-3 min-w-0">
+                <img src="logo.jpg" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" alt="Logo" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
+                <div class="hidden w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm flex items-center justify-center flex-shrink-0">SLF</div>
+                <div class="truncate">
+                    <h1 class="font-bold text-slate-900 leading-tight text-sm sm:text-base truncate">Smart Lost & Found Polmed</h1>
+                    <p class="text-[10px] sm:text-xs text-slate-500 truncate">Politeknik Negeri Medan</p>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+                <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="laporan-saya.html" class="text-blue-600 font-semibold">Laporan Saya</a>
+                <a href="chat.html" class="hover:text-blue-600 transition">Pesan</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="login.html" class="text-xs text-rose-600 font-semibold hover:underline">Logout</a>
+                <a href="lapor.html" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold">+ Buat Laporan</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+        <div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Dashboard Laporan Saya</h2>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1">Pantau riwayat laporan, saran kecocokan otomatis, dan notifikasi klaim.</p>
+        </div>
+
+        <!-- SARAN KECOCOKAN OTOMATIS (FR-06) -->
+        <section class="bg-blue-50/80 border border-blue-200 rounded-2xl p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="text-lg">✨</span>
+                    <h3 class="font-bold text-slate-900 text-base">Saran Kecocokan Otomatis (Smart Matching)</h3>
+                </div>
+                <span class="bg-blue-600 text-white text-[11px] font-bold px-3 py-1 rounded-full">Skor Kemiripan 90%</span>
+            </div>
+            <p class="text-xs text-slate-600">Sistem menemukan laporan lawan yang cocok berdasarkan kategori <strong>Elektronik</strong>, lokasi <strong>Gedung U201</strong>, dan kata kunci.</p>
+            <div class="bg-white p-4 rounded-xl border border-blue-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <span class="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Laporan Hilang</span>
+                    <h4 class="font-bold text-slate-900 text-sm mt-1">Kehilangan Charger Type-C Ugreen di U201</h4>
+                    <p class="text-xs text-slate-500">Dilaporkan oleh Dinda Pratiwi • 13-10-2026</p>
+                </div>
+                <a href="chat.html" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs text-center transition">
+                    Hubungi via Webchat →
+                </a>
+            </div>
+        </section>
+
+        <!-- NOTIFIKASI TERBARU (FR-11) -->
+        <section class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 space-y-3">
+            <h3 class="font-bold text-slate-900 text-base">🔔 Notifikasi Terbaru</h3>
+            <div class="divide-y divide-slate-100 text-xs">
+                <div class="py-3 flex items-center justify-between gap-4">
+                    <p class="text-slate-700"><span class="font-bold text-blue-600">[Klaim Baru]</span> Dinda Pratiwi mengajukan klaim untuk laporan <strong>Charger Ugreen GaN 65W</strong>.</p>
+                    <span class="text-slate-400 flex-shrink-0">10:15 WIB</span>
+                </div>
+                <div class="py-3 flex items-center justify-between gap-4">
+                    <p class="text-slate-700"><span class="font-bold text-emerald-600">[Smart Match]</span> Ditemukan 1 kecocokan potensial di <strong>Gedung U201</strong>.</p>
+                    <span class="text-slate-400 flex-shrink-0">09:30 WIB</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAFTAR LAPORAN MILIK PENGGUNA -->
+        <section class="space-y-4">
+            <h3 class="font-bold text-slate-900 text-lg">Daftar Laporan yang Saya Buat</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200/80 flex items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Ditemukan</span>
+                        <h4 class="font-bold text-slate-900 text-base">Charger Ugreen GaN 65W</h4>
+                        <p class="text-xs text-slate-500">📍 Gedung U201 • 13-10-2026</p>
+                    </div>
+                    <a href="detail.html" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-4 py-2.5 rounded-xl text-xs transition">
+                        Kelola / Ubah Status
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
