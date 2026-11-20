@@ -3,310 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda - Smart Lost & Found Polmed</title>
-    <!-- CDN Tailwind CSS -->
+    <title>Cari Barang - Smart Lost & Found Polmed</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .item-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .item-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
 
-    <!-- 1. NAVBAR -->
+    <!-- NAVBAR -->
     <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2">
-            <!-- Logo & Brand -->
-            <div class="flex items-center gap-3 min-w-0">
-                <img src="assets/img/logo.jpg" alt="Logo Smart Lost & Found Polmed" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
+            <a href="index.html" class="flex items-center gap-3 min-w-0">
+                <img src="logo.jpg" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" alt="Logo Smart Lost & Found Polmed" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
+                <div class="hidden w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm flex items-center justify-center flex-shrink-0">SLF</div>
                 <div class="truncate">
                     <h1 class="font-bold text-slate-900 leading-tight text-sm sm:text-base truncate">Smart Lost & Found Polmed</h1>
                     <p class="text-[10px] sm:text-xs text-slate-500 truncate">Politeknik Negeri Medan</p>
                 </div>
+            </a>
+
+            <!-- Menu Tengah Sebelum Login (Tanpa Laporan Saya & Pesan/Chat) -->
+            <div id="menu-guest">
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="index.html" class="hover:text-blue-600 transition">Halaman Utama</a>
+                    <a href="beranda.html" class="text-blue-600 font-bold border-b-2 border-blue-600 py-1">Cari Barang</a>
+                </nav>
             </div>
 
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-                <a href="#" class="text-blue-600 font-bold border-b-2 border-blue-600 py-1">Beranda</a>
-                <a href="#" class="hover:text-blue-600 transition">Laporan saya</a>
-                <a href="#" class="hover:text-blue-600 transition">Pesan</a>
-            </nav>
+            <!-- Menu Tengah Sesudah Login -->
+            <div id="menu-user" class="hidden">
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="beranda.html" class="text-blue-600 font-bold border-b-2 border-blue-600 py-1">Beranda</a>
+                    <a href="laporan-saya.html" class="hover:text-blue-600 transition">Laporan saya</a>
+                    <a href="chat.html" class="hover:text-blue-600 transition">Pesan</a>
+                </nav>
+            </div>
 
-            <!-- Auth Buttons -->
-            <div class="flex items-center gap-2 sm:gap-4 text-sm font-semibold flex-shrink-0">
-                <a href="#" class="text-blue-600 hover:text-blue-700 px-2 py-2 text-xs sm:text-sm">Login</a>
-                <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-2.5 rounded-lg flex items-center gap-1.5 transition shadow-sm text-xs sm:text-sm">
-                    <span>+</span>
-                    <span class="hidden sm:inline">Buat Laporan</span>
-                </a>
+            <!-- Tombol Auth Sebelum Login -->
+            <div id="auth-guest">
+                <div class="flex items-center gap-2 sm:gap-4 text-sm font-semibold flex-shrink-0">
+                    <a href="login.html" class="text-blue-600 hover:text-blue-700 px-2 py-2 text-xs sm:text-sm">Login</a>
+                    <a href="login.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-2.5 rounded-lg flex items-center gap-1.5 transition shadow-sm text-xs sm:text-sm">
+                        <span>+</span>
+                        <span class="hidden sm:inline">Buat Laporan</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profil & Logout Sesudah Login -->
+            <div id="auth-user" class="hidden">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <a href="laporan-saya.html" title="Lihat Profil & Laporan Saya" class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 px-2.5 py-1.5 rounded-full transition">
+                        <span id="user-initials" class="w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">RA</span>
+                        <span id="user-display-name" class="hidden lg:inline text-xs font-semibold text-slate-700 max-w-[110px] truncate">Rizky Ananda</span>
+                    </a>
+                    <a href="lapor.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2.5 rounded-lg flex items-center gap-1.5 transition shadow-sm text-xs sm:text-sm">
+                        <span>+</span>
+                        <span class="hidden sm:inline">Buat Laporan</span>
+                    </a>
+                    <button type="button" onclick="handleLogout()" class="text-xs font-semibold text-rose-600 hover:bg-rose-50 px-2.5 py-2 rounded-lg transition">Logout</button>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-8 flex-grow w-full">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6 flex-grow w-full">
 
-        <!-- 2. PAGE TITLE / HEADER SECTION -->
-        <section class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div class="space-y-1">
-                <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Portal Barang Kampus</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Temukan barangmu</h2>
-                <p class="text-xs sm:text-sm text-slate-500">Cari, laporkan, dan kembalikan barang di lingkungan Polmed.</p>
-            </div>
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                Terhubung untuk warga Polmed
-            </div>
-        </section>
+        <!-- HEADER & STATISTIK (DISEMBUNYIKAN SEBELUM LOGIN AGAR FOKUS KE PENCARIAN & BARANG) -->
+        <div id="logged-in-header" class="hidden space-y-6">
+            <section class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="space-y-1">
+                    <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">Portal Barang Kampus</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Temukan barangmu</h2>
+                    <p class="text-xs sm:text-sm text-slate-500">Cari, laporkan, dan kembalikan barang di lingkungan Polmed.</p>
+                </div>
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Terhubung untuk warga Polmed
+                </div>
+            </section>
 
-        <!-- 3. STATISTIK BAR -->
-        <section class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 items-center shadow-sm">
-            <div class="col-span-2 md:col-span-1 text-center md:text-left">
-                <h3 class="text-base sm:text-lg font-bold leading-snug">Barang kembali, kuliah lebih tenang.</h3>
-                <p class="text-[11px] text-slate-400 mt-1">128 laporan terhubung dengan komunitas kampus.</p>
-            </div>
-            <div class="text-center md:border-l border-slate-800">
-                <span class="text-2xl sm:text-3xl font-extrabold text-white">42</span>
-                <p class="text-xs text-red-400 font-semibold mt-1 flex items-center justify-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span> Hilang
-                </p>
-            </div>
-            <div class="text-center md:border-l border-slate-800">
-                <span class="text-2xl sm:text-3xl font-extrabold text-white">56</span>
-                <p class="text-xs text-amber-400 font-semibold mt-1 flex items-center justify-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Ditemukan
-                </p>
-            </div>
-            <div class="col-span-2 md:col-span-1 text-center md:border-l border-slate-800">
-                <span class="text-2xl sm:text-3xl font-extrabold text-white">30</span>
-                <p class="text-xs text-emerald-400 font-semibold mt-1 flex items-center justify-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Dikembalikan
-                </p>
-            </div>
-        </section>
+            <section class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 items-center shadow-sm">
+                <div class="col-span-2 md:col-span-1 text-center md:text-left">
+                    <h3 class="text-base sm:text-lg font-bold leading-snug">Barang kembali, kuliah lebih tenang.</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">128 laporan terhubung dengan komunitas kampus.</p>
+                </div>
+                <div class="text-center md:border-l border-slate-800">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-white">42</span>
+                    <p class="text-xs text-red-400 font-semibold mt-1">● Hilang</p>
+                </div>
+                <div class="text-center md:border-l border-slate-800">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-white">56</span>
+                    <p class="text-xs text-amber-400 font-semibold mt-1">● Ditemukan</p>
+                </div>
+                <div class="col-span-2 md:col-span-1 text-center md:border-l border-slate-800">
+                    <span class="text-2xl sm:text-3xl font-extrabold text-white">30</span>
+                    <p class="text-xs text-emerald-400 font-semibold mt-1">● Dikembalikan</p>
+                </div>
+            </section>
+        </div>
 
-        <!-- 4. SEARCH & LOCATION FILTER BAR -->
+        <!-- 1. KOLOM PENCARIAN & FILTER -->
         <section class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
-            <!-- Search Input & Category Dropdown -->
             <div class="flex flex-col md:flex-row gap-3">
                 <div class="relative flex-grow">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">🔍</span>
-                    <input type="text" placeholder="Cari nama atau ciri-ciri barang..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20">
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-xs font-mono text-slate-400">⌘ K</span>
+                    <input type="text" id="search-input" placeholder="Cari nama atau ciri-ciri barang..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20">
                 </div>
                 
                 <div class="flex gap-3">
-                    <select class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 w-full md:w-auto">
-                        <option>Semua kategori</option>
-                        <option>Elektronik</option>
-                        <option>Aksesori</option>
-                        <option>Kunci</option>
-                        <option>Dokumen</option>
-                        <option>Perlengkapan</option>
+                    <select id="category-filter" class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 w-full md:w-auto">
+                        <option value="Semua">Semua kategori</option>
+                        <option value="Elektronik">Elektronik</option>
+                        <option value="Aksesori">Aksesori</option>
+                        <option value="Kunci">Kunci</option>
+                        <option value="Dompet">Dompet</option>
+                        <option value="Dokumen">Dokumen</option>
+                        <option value="Perlengkapan">Perlengkapan</option>
                     </select>
 
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl text-sm flex items-center justify-center gap-2 transition flex-shrink-0 shadow-md shadow-blue-500/10">
+                    <button type="button" onclick="applyFilters()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl text-sm flex items-center justify-center gap-2 transition flex-shrink-0 shadow-md shadow-blue-500/10">
                         <span>🔍</span> Cari Barang
                     </button>
                 </div>
             </div>
 
-            <!-- Location Pills Filter -->
+            <!-- Filter Lokasi Kampus -->
             <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
                 <span class="text-slate-400 font-medium mr-2">Lokasi kampus:</span>
-                <button class="bg-blue-600 text-white font-semibold px-3 py-1.5 rounded-lg transition">Semua lokasi</button>
-                <button class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Gedung U201</button>
-                <button class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Lab</button>
-                <button class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Bengkel</button>
-                <button class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Pendopo</button>
+                <button type="button" onclick="setLocationFilter('Semua', this)" class="loc-btn bg-blue-600 text-white font-semibold px-3 py-1.5 rounded-lg transition">Semua lokasi</button>
+                <button type="button" onclick="setLocationFilter('Gedung U201', this)" class="loc-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Gedung U201</button>
+                <button type="button" onclick="setLocationFilter('Lab', this)" class="loc-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Lab</button>
+                <button type="button" onclick="setLocationFilter('Bengkel', this)" class="loc-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Bengkel</button>
+                <button type="button" onclick="setLocationFilter('Pendopo', this)" class="loc-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition">Pendopo</button>
             </div>
         </section>
 
-        <!-- 5. BARANG CATALOG GRID -->
+        <!-- 2. DAFTAR BARANG & TAB STATUS -->
         <section class="space-y-6">
-            <!-- Filter Status Tab & Header -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-slate-200 pb-4">
                 <div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Laporan terbaru</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Menampilkan 8 dari 128 laporan</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Daftar Barang</h3>
+                    <p id="result-count" class="text-xs text-slate-500 mt-0.5">Menampilkan 8 laporan</p>
                 </div>
 
                 <!-- Status Tabs -->
                 <div class="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-semibold bg-slate-100 p-1 rounded-xl">
-                    <button class="bg-white text-blue-600 shadow-sm px-3 py-1.5 rounded-lg">Semua</button>
-                    <button class="text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg">Hilang</button>
-                    <button class="text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg">Ditemukan</button>
-                    <button class="text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg">Dikembalikan</button>
+                    <button type="button" onclick="setStatusFilter('Semua', this)" class="status-tab bg-white text-blue-600 shadow-sm px-3 py-1.5 rounded-lg">Semua</button>
+                    <button type="button" onclick="setStatusFilter('HILANG', this)" class="status-tab text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg">Hilang</button>
+                    <button type="button" onclick="setStatusFilter('DITEMUKAN', this)" class="status-tab text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg">Ditemukan</button>
+                    <button type="button" onclick="setStatusFilter('DIKEMBALIKAN', this)" class="status-tab text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg">Dikembalikan</button>
                 </div>
             </div>
 
-            <!-- Items Grid (4 Columns) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="items-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
 
-                <!-- Card 1 (DITEMUKAN) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Ditemukan</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Elektronik</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Gedung U201 · <span class="text-[10px] text-slate-400">13 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
-                <!-- Card 2 (HILANG) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-red-100 text-red-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Hilang</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Aksesori</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Pendopo · <span class="text-[10px] text-slate-400">13 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
-                <!-- Card 3 (DITEMUKAN) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Ditemukan</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Kunci</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Bengkel · <span class="text-[10px] text-slate-400">12 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
-                <!-- Card 4 (DIKEMBALIKAN) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Dikembalikan</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Perlengkapan</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Lab · <span class="text-[10px] text-slate-400">12 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
-                <!-- Card 5 (DITEMUKAN) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Ditemukan</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Dokumen</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Gedung U201 · <span class="text-[10px] text-slate-400">12 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
-                <!-- Card 6 (HILANG) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-red-100 text-red-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Hilang</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Elektronik</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Lab · <span class="text-[10px] text-slate-400">11 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
-                <!-- Card 7 (DITEMUKAN) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Ditemukan</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Perlengkapan</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Bengkel · <span class="text-[10px] text-slate-400">11 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
-                <!-- Card 8 (DIKEMBALIKAN) -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200 transition">
-                    <div class="space-y-3">
-                        <div class="w-full h-40 bg-slate-100 rounded-xl relative">
-                            <span class="absolute top-3 left-3 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">Dikembalikan</span>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-[10px] text-slate-400 font-medium">Perlengkapan</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
-                            <p class="text-xs text-slate-500">📍 Pendopo · <span class="text-[10px] text-slate-400">10 Okt 2026</span></p>
-                        </div>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
-                </div>
-
+            <div id="empty-state" class="hidden bg-white rounded-2xl border border-slate-200 p-10 text-center space-y-2">
+                <p class="text-3xl">🔍</p>
+                <h4 class="font-bold text-slate-900 text-base">Barang tidak ditemukan</h4>
+                <p class="text-xs text-slate-500">Coba ubah kata kunci pencarian, kategori, atau lokasi kampus.</p>
             </div>
-        </section>
-
-        <!-- 6. PAGINATION -->
-        <section class="flex justify-center items-center gap-1.5 pt-6 text-xs font-semibold">
-            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 transition">&lt;</a>
-            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm">1</a>
-            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition">2</a>
-            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition">3</a>
-            <span class="px-1 text-slate-400">...</span>
-            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 transition">16</a>
-            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 transition">&gt;</a>
         </section>
 
     </main>
 
-    <!-- 7. FOOTER -->
+    <!-- FOOTER -->
     <footer class="bg-white border-t border-slate-100 py-6 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
             <p>© 2026 Smart Lost & Found Polmed</p>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-blue-600 transition">Panduan</a>
-                <a href="#" class="hover:text-blue-600 transition">Privasi</a>
-                <a href="#" class="hover:text-blue-600 transition">Bantuan</a>
+                <a href="index.html#cara-kerja" class="hover:text-blue-600 transition">Panduan</a>
+                <a href="index.html#faq" class="hover:text-blue-600 transition">Privasi</a>
+                <a href="mailto:pengelola@polmed.ac.id" class="hover:text-blue-600 transition">Bantuan</a>
             </div>
         </div>
     </footer>
 
+    <script>
+        const defaultItems = [
+            { id: 1, nama: "Charger Ugreen GaN 65W", kategori: "Elektronik", lokasi: "Gedung U201", tanggal: "13-10-2026", status: "DITEMUKAN", ikon: "🔌", deskripsi: "Ditemukan di meja dekat jendela ruang U201 setelah kelas pagi. Charger dalam kondisi baik bersama kabel USB-C hitam.", penyimpanan: "Disimpan oleh pelapor", pelapor: "Rizky Ananda" },
+            { id: 2, nama: "Dompet Kulit Cokelat", kategori: "Dompet", lokasi: "Pendopo", tanggal: "13-10-2026", status: "HILANG", ikon: "👛", deskripsi: "Dompet kulit lipat warna cokelat tua tertinggal di bangku panjang area Pendopo sekitar pukul 11.30 WIB.", penyimpanan: "Belum ditemukan", pelapor: "Dinda Pratiwi" },
+            { id: 3, nama: "Kunci Motor Honda + Gantungan", kategori: "Kunci", lokasi: "Bengkel", tanggal: "12-10-2026", status: "DITEMUKAN", ikon: "🔑", deskripsi: "Satu buah kunci motor Honda beserta gantungan karet biru ditemukan di dekat pintu masuk Bengkel Mesin.", penyimpanan: "Dititipkan di Pos Satpam", pelapor: "Ahmad Fauzi" },
+            { id: 4, nama: "Kalkulator Scientific Casio", kategori: "Perlengkapan", lokasi: "Lab", tanggal: "12-10-2026", status: "DIKEMBALIKAN", ikon: "🧮", deskripsi: "Kalkulator Casio fx-991EX tertinggal di meja praktikum Lab Komputer 2.", penyimpanan: "Sudah dikembalikan ke pemilik", pelapor: "Siti Rahma" },
+            { id: 5, nama: "KTM & Kartu ATM BNI", kategori: "Dokumen", lokasi: "Gedung U201", tanggal: "12-10-2026", status: "DITEMUKAN", ikon: "🪪", deskripsi: "Card holder transparan berisi KTM Polmed dan kartu debit ditemukan di koridor lantai 2 Gedung U201.", penyimpanan: "Disimpan oleh pelapor", pelapor: "Rizky Ananda" },
+            { id: 6, nama: "Earphone TWS Putih", kategori: "Elektronik", lokasi: "Lab", tanggal: "11-10-2026", status: "HILANG", ikon: "🎧", deskripsi: "Charging case TWS warna putih polos terjatuh di sekitar Lab Jaringan.", penyimpanan: "Belum ditemukan", pelapor: "Bagas Pratama" },
+            { id: 7, nama: "Helm Half Face Hitam Doff", kategori: "Perlengkapan", lokasi: "Bengkel", tanggal: "11-10-2026", status: "DITEMUKAN", ikon: "🪖", deskripsi: "Helm hitam doff ditemukan tergeletak di parkiran samping area Bengkel.", penyimpanan: "Dititipkan di Pos Satpam", pelapor: "Nadia Putri" },
+            { id: 8, nama: "Tumbler Stainless Biru", kategori: "Aksesori", lokasi: "Pendopo", tanggal: "10-10-2026", status: "DIKEMBALIKAN", ikon: "🧴", deskripsi: "Botol minum stainless warna biru navy kapasitas 750ml tertinggal di meja diskusi Pendopo.", penyimpanan: "Sudah dikembalikan ke pemilik", pelapor: "Rizky Ananda" }
+        ];
+
+        function getStoredItems() {
+            const saved = localStorage.getItem("slf_items");
+            if (!saved) {
+                localStorage.setItem("slf_items", JSON.stringify(defaultItems));
+                return defaultItems;
+            }
+            return JSON.parse(saved);
+        }
+
+        function checkLoginState() {
+            const savedUser = localStorage.getItem("slf_user");
+            const menuGuest = document.getElementById("menu-guest");
+            const menuUser = document.getElementById("menu-user");
+            const authGuest = document.getElementById("auth-guest");
+            const authUser = document.getElementById("auth-user");
+            const loggedInHeader = document.getElementById("logged-in-header");
+
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                menuGuest.classList.add("hidden");
+                menuUser.classList.remove("hidden");
+                authGuest.classList.add("hidden");
+                authUser.classList.remove("hidden");
+                loggedInHeader.classList.remove("hidden");
+                document.getElementById("user-initials").textContent = user.inisial;
+                document.getElementById("user-display-name").textContent = user.nama;
+            } else {
+                menuGuest.classList.remove("hidden");
+                menuUser.classList.add("hidden");
+                authGuest.classList.remove("hidden");
+                authUser.classList.add("hidden");
+                loggedInHeader.classList.add("hidden");
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem("slf_user");
+            alert("Anda telah berhasil logout.");
+            window.location.href = "index.html";
+        }
+
+        function openItemDetail(itemId) {
+            const savedUser = localStorage.getItem("slf_user");
+            if (!savedUser) {
+                alert("Silakan login terlebih dahulu untuk melihat detail barang, mengonfirmasi kepemilikan, dan membuka chat.");
+                window.location.href = "login.html";
+                return;
+            }
+            window.location.href = `detail.html?id=${itemId}`;
+        }
+
+        let activeLocation = "Semua";
+        let activeStatus = "Semua";
+
+        function renderItems(items) {
+            const grid = document.getElementById("items-grid");
+            const emptyState = document.getElementById("empty-state");
+            const resultCount = document.getElementById("result-count");
+            const isLoggedIn = Boolean(localStorage.getItem("slf_user"));
+            grid.innerHTML = "";
+
+            if (items.length === 0) {
+                grid.classList.add("hidden");
+                emptyState.classList.remove("hidden");
+                resultCount.textContent = "Menampilkan 0 laporan";
+                return;
+            }
+
+            grid.classList.remove("hidden");
+            emptyState.classList.add("hidden");
+            resultCount.textContent = `Menampilkan ${items.length} laporan sesuai filter`;
+
+            items.forEach(item => {
+                let badgeClass = "bg-amber-100 text-amber-800";
+                if (item.status === "HILANG") badgeClass = "bg-red-100 text-red-800";
+                if (item.status === "DIKEMBALIKAN") badgeClass = "bg-emerald-100 text-emerald-800";
+
+                const btnText = isLoggedIn ? "Lihat Detail" : "🔒 Login untuk Lihat Detail";
+
+                const card = `
+                    <div class="item-card bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm flex flex-col justify-between hover:border-slate-200">
+                        <div class="space-y-3">
+                            <div class="w-full h-40 bg-slate-100 rounded-xl relative flex items-center justify-center text-4xl">
+                                <span>${item.ikon || "📦"}</span>
+                                <span class="absolute top-3 left-3 ${badgeClass} text-[10px] font-bold px-2.5 py-0.5 rounded uppercase">${item.status}</span>
+                            </div>
+                            <div class="space-y-1">
+                                <span class="text-[10px] text-slate-400 font-medium">${item.kategori}</span>
+                                <h4 class="font-bold text-slate-900 text-sm line-clamp-1">${item.nama}</h4>
+                                <p class="text-xs text-slate-500">📍 ${item.lokasi} · <span class="text-[10px] text-slate-400">${item.tanggal}</span></p>
+                            </div>
+                        </div>
+                        <button type="button" onclick="openItemDetail(${item.id})" class="w-full text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
+                            ${btnText}
+                        </button>
+                    </div>
+                `;
+                grid.insertAdjacentHTML("beforeend", card);
+            });
+        }
+
+        function applyFilters() {
+            const keyword = document.getElementById("search-input").value.toLowerCase().trim();
+            const category = document.getElementById("category-filter").value;
+            const allItems = getStoredItems();
+
+            const filtered = allItems.filter(item => {
+                const matchKeyword = item.nama.toLowerCase().includes(keyword) || item.lokasi.toLowerCase().includes(keyword) || item.kategori.toLowerCase().includes(keyword);
+                const matchCategory = category === "Semua" || item.kategori === category;
+                const matchLocation = activeLocation === "Semua" || item.lokasi === activeLocation;
+                const matchStatus = activeStatus === "Semua" || item.status === activeStatus;
+                return matchKeyword && matchCategory && matchLocation && matchStatus;
+            });
+
+            renderItems(filtered);
+        }
+
+        function setLocationFilter(location, btnElement) {
+            activeLocation = location;
+            document.querySelectorAll(".loc-btn").forEach(btn => {
+                btn.className = "loc-btn bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition";
+            });
+            btnElement.className = "loc-btn bg-blue-600 text-white font-semibold px-3 py-1.5 rounded-lg transition";
+            applyFilters();
+        }
+
+        function setStatusFilter(status, btnElement) {
+            activeStatus = status;
+            document.querySelectorAll(".status-tab").forEach(btn => {
+                btn.className = "status-tab text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg";
+            });
+            btnElement.className = "status-tab bg-white text-blue-600 shadow-sm px-3 py-1.5 rounded-lg";
+            applyFilters();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            checkLoginState();
+            const searchInput = document.getElementById("search-input");
+            const categoryFilter = document.getElementById("category-filter");
+            const urlQuery = new URLSearchParams(window.location.search).get("q");
+            if (urlQuery) searchInput.value = urlQuery;
+
+            applyFilters();
+            searchInput.addEventListener("input", applyFilters);
+            categoryFilter.addEventListener("change", applyFilters);
+        });
+    </script>
+        <!-- TOMBOL PANDUAN MELAYANG (MENGARAH KE HALAMAN INSTRUKSI PENGGUNA) -->
+    <a href="panduan.html" title="Buka Halaman Instruksi Pengguna" class="fixed bottom-5 right-5 z-40 bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-xs transition">
+        <span class="w-5 h-5 rounded-full bg-white text-blue-600 flex items-center justify-center font-extrabold">?</span>
+        <span>Panduan</span>
+    </a>
 </body>
 </html>

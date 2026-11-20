@@ -7,18 +7,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .campus-panel { background: linear-gradient(160deg, #0B3B8C 0%, #082B66 100%); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col lg:flex-row">
 
-    <!-- KOLOM KIRI: PANEL IDENTITAS, LOGO & FOTO GEDUNG POLMED -->
-    <aside class="lg:w-5/12 bg-[#0B3B8C] text-white p-6 sm:p-10 lg:p-12 flex flex-col justify-between">
+    <!-- KOLOM KIRI: IDENTITAS, LOGO & FOTO GEDUNG POLMED -->
+    <aside class="lg:w-5/12 campus-panel text-white p-6 sm:p-10 lg:p-12 flex flex-col justify-between">
         <div class="space-y-6">
-            <!-- Header Logo -->
             <div class="flex items-center gap-3">
-                <img src="assets/img/logo.jpg"
-                     onerror="this.onerror=null; this.src='logo.jpg'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.classList.remove('hidden');};"
+                <img src="logo.jpg"
+                     onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
                      alt="Logo Smart Lost & Found Polmed"
                      class="w-10 h-10 rounded-xl object-cover bg-slate-900 border border-blue-400/30 flex-shrink-0">
                 <div class="hidden w-10 h-10 rounded-xl bg-blue-700 text-white font-bold text-sm flex items-center justify-center flex-shrink-0">SLF</div>
@@ -28,7 +29,6 @@
                 </div>
             </div>
 
-            <!-- Slogan Utama -->
             <div class="space-y-3 pt-2">
                 <span class="inline-flex items-center gap-1.5 text-blue-200 text-[11px] font-semibold uppercase tracking-wider">
                     🎓 KOMUNITAS POLMED
@@ -41,27 +41,25 @@
                 </p>
             </div>
 
-            <!-- Foto Gedung Polmed + Lencana Civitas (Sesuai UI/UX 496x279) -->
+            <!-- Foto Gedung Polmed + Lencana -->
             <div class="relative pb-3">
                 <div class="w-full aspect-video rounded-xl overflow-hidden border-2 border-white/25 shadow-lg bg-blue-950 flex items-center justify-center">
-                    <img src="assets/img/gedung-polmed.jpeg"
+                    <img src="gedung-polmed.jpeg"
                          onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
                          alt="Gedung Politeknik Negeri Medan"
                          class="w-full h-full object-cover">
                     <div class="hidden text-center p-4 text-xs text-blue-200">
                         <p class="text-2xl mb-1">🏫</p>
                         <p class="font-semibold">Foto Gedung Polmed</p>
-                        <p class="text-[11px] opacity-80">Simpan gambar sebagai assets/img/gedung-polmed.jpg</p>
+                        <p class="text-[11px] opacity-80">Simpan foto sebagai gedung-polmed.jpeg</p>
                     </div>
                 </div>
-                <!-- Lencana Melayang di Kiri Bawah Gambar -->
                 <div class="inline-flex items-center gap-1.5 bg-slate-900/90 backdrop-blur-sm text-white text-[11px] font-medium px-3 py-1.5 rounded-full border border-white/15 shadow-md -mt-4 ml-3 relative z-10">
                     <span class="text-blue-400">📍</span>
                     <span>Untuk seluruh Civitas Polmed</span>
                 </div>
             </div>
 
-            <!-- Kartu Statistik Pengembalian -->
             <div class="bg-white/10 border border-white/15 p-4 rounded-2xl flex items-center gap-3.5">
                 <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-xl flex-shrink-0">🤝</div>
                 <div>
@@ -179,6 +177,76 @@
         </div>
     </main>
 
-    <script src="assets/js/main.js"></script>
+    <script>
+        function switchAuthTab(mode) {
+            const formLogin = document.getElementById("form-login");
+            const formRegister = document.getElementById("form-register");
+            const tabLogin = document.getElementById("tab-login");
+            const tabRegister = document.getElementById("tab-register");
+            const heading = document.getElementById("auth-heading");
+            const subtext = document.getElementById("auth-subtext");
+            const alertBox = document.getElementById("auth-alert");
+
+            alertBox.classList.add("hidden");
+
+            if (mode === "login") {
+                formLogin.classList.remove("hidden");
+                formRegister.classList.add("hidden");
+                tabLogin.className = "bg-white text-slate-900 font-semibold py-2.5 rounded-lg shadow-sm text-sm transition";
+                tabRegister.className = "text-slate-500 hover:text-slate-800 font-semibold py-2.5 rounded-lg text-sm transition";
+                heading.textContent = "Selamat datang kembali";
+                subtext.textContent = "Login untuk membuat laporan, mengajukan klaim, dan terhubung lewat chat.";
+            } else {
+                formRegister.classList.remove("hidden");
+                formLogin.classList.add("hidden");
+                tabRegister.className = "bg-white text-slate-900 font-semibold py-2.5 rounded-lg shadow-sm text-sm transition";
+                tabLogin.className = "text-slate-500 hover:text-slate-800 font-semibold py-2.5 rounded-lg text-sm transition";
+                heading.textContent = "Buat akun civitas Polmed";
+                subtext.textContent = "Daftar menggunakan identitas kampus untuk mulai melaporkan atau mengklaim barang.";
+            }
+        }
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === "password" ? "text" : "password";
+        }
+
+        function handleLoginSubmit(event) {
+            event.preventDefault();
+            const userInput = document.getElementById("login-username").value.trim();
+            const passInput = document.getElementById("login-password").value.trim();
+            const alertBox = document.getElementById("auth-alert");
+
+            if (userInput.length < 3 || passInput.length < 4) {
+                alertBox.className = "p-3.5 rounded-xl text-xs font-medium bg-rose-50 border border-rose-200 text-rose-700";
+                alertBox.textContent = "Username atau kata sandi salah.";
+                alertBox.classList.remove("hidden");
+                return;
+            }
+
+            const parts = userInput.split(/[.\s_-]+/);
+            const initials = parts.length > 1
+                ? (parts[0][0] + parts[1][0]).toUpperCase()
+                : userInput.substring(0, 2).toUpperCase();
+            const formattedName = parts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+
+            localStorage.setItem("slf_user", JSON.stringify({
+                username: userInput,
+                nama: formattedName,
+                inisial: initials
+            }));
+
+            window.location.href = "index.html";
+        }
+
+        function handleRegisterSubmit(event) {
+            event.preventDefault();
+            const alertBox = document.getElementById("auth-alert");
+            switchAuthTab("login");
+            alertBox.className = "p-3.5 rounded-xl text-xs font-medium bg-emerald-50 border border-emerald-200 text-emerald-800";
+            alertBox.textContent = "Registrasi berhasil! Silakan login menggunakan username dan password baru Anda.";
+            alertBox.classList.remove("hidden");
+        }
+    </script>
 </body>
 </html>

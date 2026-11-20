@@ -4,54 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Lost & Found Polmed</title>
-    <!-- CDN Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Inter & Plus Jakarta Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06); }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-    <!-- 1. NAVBAR -->
+    <!-- NAVBAR -->
     <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-3 min-w-0">
-                <!-- Logo Bulat Rapi -->
-                <img src="assets/img/logo.jpg" alt="Logo Smart Lost & Found Polmed" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
+            <a href="index.html" class="flex items-center gap-3 min-w-0">
+                <img src="logo.jpg" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" alt="Logo Smart Lost & Found Polmed" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
+                <div class="hidden w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm flex items-center justify-center flex-shrink-0">SLF</div>
                 <div class="truncate">
                     <h1 class="font-bold text-slate-900 leading-tight text-sm sm:text-base truncate">Smart Lost & Found Polmed</h1>
                     <p class="text-[10px] sm:text-xs text-slate-500 truncate">Politeknik Negeri Medan</p>
                 </div>
+            </a>
+
+            <!-- Menu Tengah Sebelum Login -->
+            <div id="menu-guest">
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="#tentang" class="hover:text-blue-600 transition">Tentang</a>
+                    <a href="#cara-kerja" class="hover:text-blue-600 transition">Cara kerja</a>
+                    <a href="#laporan-terbaru" class="hover:text-blue-600 transition">Laporan terbaru</a>
+                    <a href="#faq" class="hover:text-blue-600 transition">FAQ</a>
+                </nav>
             </div>
 
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-                <a href="#tentang" class="hover:text-blue-600 transition">Tentang</a>
-                <a href="#cara-kerja" class="hover:text-blue-600 transition">Cara kerja</a>
-                <a href="#laporan-terbaru" class="hover:text-blue-600 transition">Laporan terbaru</a>
-                <a href="#faq" class="hover:text-blue-600 transition">FAQ</a>
-            </nav>
-
-            <div class="flex items-center gap-2 sm:gap-4 text-sm font-semibold flex-shrink-0">
-                <a href="login.html" class="text-blue-600 hover:text-blue-700 px-2 py-2 text-xs sm:text-sm">Login</a>
-                <a href="lapor.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-2.5 rounded-lg flex items-center gap-1.5 transition shadow-sm text-xs sm:text-sm">
-                    <span>+</span>
-                    <span class="hidden sm:inline">Buat Laporan</span>
-                </a>
+            <!-- Menu Tengah Sesudah Login -->
+            <div id="menu-user" class="hidden">
+                <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="beranda.html" class="hover:text-blue-600 transition">Beranda</a>
+                    <a href="laporan-saya.html" class="hover:text-blue-600 transition">Laporan saya</a>
+                    <a href="chat.html" class="hover:text-blue-600 transition">Pesan</a>
+                </nav>
             </div>
-            <div id="auth-user" class="hidden flex items-center gap-2 sm:gap-3">
-                <a href="laporan_saya.html" title="Lihat Profil & Laporan Saya" class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border-slate-200 px-2.5 py-1.5 rounded-full transition">
-                    <span id="user-initials" class="w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">RA</span>
-                    <span id="user-display-name" class="hidden lg:inline text:xs font-semibold text-slate-700 max-w-[110px] truncate">Rizky Ananda</span>
-                </a>
-                <a href="lapor.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2.5 rounded-lg flex items-center gap-1.5 transition shadow-sm text-xs sm:text-sm">
-                    <span>+<span>
-                    <span class="hidden sm:inline">Buat Laporan</span>
-                </a>
-                <button type="button" onclick="handleLogout()" class="text-xs font-semibold text-rose-600 hover:bg-rose-50 px-2.5 py-2 rounded-lg transition">
-                    Logout
-                </button>
+
+            <!-- Tombol Auth Sebelum Login -->
+            <div id="auth-guest">
+                <div class="flex items-center gap-2 sm:gap-4 text-sm font-semibold flex-shrink-0">
+                    <a href="login.html" class="text-blue-600 hover:text-blue-700 px-2 py-2 text-xs sm:text-sm">Login</a>
+                    <a href="login.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-2.5 rounded-lg flex items-center gap-1.5 transition shadow-sm text-xs sm:text-sm">
+                        <span>+</span>
+                        <span class="hidden sm:inline">Buat Laporan</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profil & Logout Sesudah Login -->
+            <div id="auth-user" class="hidden">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <a href="laporan-saya.html" title="Lihat Profil & Laporan Saya" class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 px-2.5 py-1.5 rounded-full transition">
+                        <span id="user-initials" class="w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center">RA</span>
+                        <span id="user-display-name" class="hidden lg:inline text-xs font-semibold text-slate-700 max-w-[110px] truncate">Rizky Ananda</span>
+                    </a>
+                    <a href="lapor.html" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2.5 rounded-lg flex items-center gap-1.5 transition shadow-sm text-xs sm:text-sm">
+                        <span>+</span>
+                        <span class="hidden sm:inline">Buat Laporan</span>
+                    </a>
+                    <button type="button" onclick="handleLogout()" class="text-xs font-semibold text-rose-600 hover:bg-rose-50 px-2.5 py-2 rounded-lg transition">
+                        Logout
+                    </button>
+                </div>
             </div>
         </div>
     </header>
@@ -59,9 +80,8 @@
     <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12 sm:space-y-20">
 
-        <!-- 2. HERO SECTION -->
+        <!-- HERO SECTION -->
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <!-- Left Banner -->
             <div class="lg:col-span-7 space-y-4 sm:space-y-6">
                 <div class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider">
                     <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -75,17 +95,17 @@
                     Smart Lost & Found Polmed menghubungkan barang yang hilang dengan orang yang peduli. Cari, laporkan, dan bantu kembalikan barang di lingkungan kampus.
                 </p>
                 <div class="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
-                    <a href="daftar-barang.html" class="w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition shadow-md shadow-blue-500/20 text-sm">
+                    <a href="beranda.html" class="w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition shadow-md shadow-blue-500/20 text-sm">
                         Cari Barang
                     </a>
-                    <a href="login.html" class="w-full sm:w-auto text-center bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-semibold transition text-sm">
+                    <a href="login.html" class="link-lapor w-full sm:w-auto text-center bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-6 py-3 rounded-xl font-semibold transition text-sm">
                         + Buat Laporan
                     </a>
                 </div>
-                <form action="daftar-barang.html" method="GET" class="relative">
+                <form action="beranda.html" method="GET" class="relative">
                     <input type="text" name="q" placeholder="Cari barang di lingkungan Polmed (tekan Enter)" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20">
-            </form>
-                <p class="text-[11px] sm:text-xs text-slate-400">Lihat laporan tanpa login. Masuk untuk melapor dan mengajukan klaim.</p>
+                </form>
+                <p class="text-[11px] sm:text-xs text-slate-400">Cari barang tanpa login. Login diperlukan untuk melihat detail barang, melapor, dan chat.</p>
             </div>
 
             <!-- Right Card Widget -->
@@ -96,18 +116,17 @@
                         <span>🎓</span>
                     </div>
                     
-                    <div class="relative">
-                        <input type="text" placeholder="Cari barang di lingkungan Polmed" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20">
-                    </div>
+                    <form action="beranda.html" method="GET" class="relative">
+                        <input type="text" name="q" placeholder="Cari barang di lingkungan Polmed" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                    </form>
 
-                    <!-- Sample Card Inside Search Widget -->
                     <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex gap-4 items-center">
-                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-slate-100 rounded-xl flex-shrink-0"></div>
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-slate-100 rounded-xl flex-shrink-0 flex items-center justify-center text-3xl">🔌</div>
                         <div class="space-y-1">
                             <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Ditemukan</span>
-                            <h4 class="font-bold text-slate-900 text-sm">NAMA BARANG</h4>
+                            <h4 class="font-bold text-slate-900 text-sm">Charger Ugreen GaN 65W</h4>
                             <p class="text-xs text-slate-500">Gedung U201</p>
-                            <a href="#" class="text-xs font-bold text-blue-600 hover:underline inline-block">Lihat Detail →</a>
+                            <a href="detail.html?id=1" onclick="return checkDetailAccess(event, 1)" class="detail-link text-xs font-bold text-blue-600 hover:underline inline-block">🔒 Login untuk Detail →</a>
                         </div>
                     </div>
 
@@ -122,7 +141,7 @@
             </div>
         </section>
 
-        <!-- 3. STATISTIK BAR -->
+        <!-- STATISTIK BAR -->
         <section class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 md:p-10 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 items-center">
             <div class="col-span-2 md:col-span-1 text-center md:text-left">
                 <h3 class="text-lg sm:text-xl font-bold">Barang kembali, kuliah lebih tenang.</h3>
@@ -142,8 +161,8 @@
             </div>
         </section>
 
-        <!-- 4. VALUE PROPOSITION / FEATURES -->
-        <section class="space-y-6 sm:space-y-8">
+        <!-- VALUE PROPOSITION / TENTANG -->
+        <section id="tentang" class="space-y-6 sm:space-y-8">
             <div class="space-y-2">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Saling Jaga, Lebih Mudah</span>
                 <h3 class="text-2xl md:text-3xl font-bold text-slate-900">Satu kampus, satu tempat untuk saling bantu.</h3>
@@ -151,17 +170,17 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-3 card-hover">
                     <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold">🔍</div>
                     <h4 class="font-bold text-slate-900">Pencarian lebih terarah</h4>
                     <p class="text-xs text-slate-500 leading-relaxed">Telusuri kategori dan lokasi, dari Gedung U201, Lab, Bengkel, hingga Pendopo.</p>
                 </div>
-                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-3 card-hover">
                     <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold">💬</div>
                     <h4 class="font-bold text-slate-900">Koordinasi dalam satu tempat</h4>
                     <p class="text-xs text-slate-500 leading-relaxed">Hubungi pelapor lewat chat untuk mencocokkan ciri barang dan mengatur pertemuan.</p>
                 </div>
-                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-3">
+                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-3 card-hover">
                     <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold">🛡️</div>
                     <h4 class="font-bold text-slate-900">Status yang mudah dipantau</h4>
                     <p class="text-xs text-slate-500 leading-relaxed">Ikuti perkembangan laporan dari hilang, ditemukan, hingga kembali ke pemiliknya.</p>
@@ -170,27 +189,19 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-2 sm:pt-4">
                 <div class="bg-blue-50/50 border border-blue-100 p-5 sm:p-6 rounded-2xl space-y-3">
-                    <h4 class="font-bold text-slate-900 flex items-center gap-2">
-                        <span>🔍</span> Kehilangan barang?
-                    </h4>
+                    <h4 class="font-bold text-slate-900 flex items-center gap-2"><span>🔍</span> Kehilangan barang?</h4>
                     <p class="text-xs text-slate-600 leading-relaxed">Cek laporan barang ditemukan terlebih dahulu. Belum ada yang cocok? Buat laporan barang hilang.</p>
-                    <a href="#" class="inline-block bg-white hover:bg-slate-50 border border-slate-200 text-blue-600 font-semibold px-4 py-2 rounded-lg text-xs transition">
-                        Cari Barang
-                    </a>
+                    <a href="beranda.html" class="inline-block bg-white hover:bg-slate-50 border border-slate-200 text-blue-600 font-semibold px-4 py-2 rounded-lg text-xs transition">Cari Barang</a>
                 </div>
                 <div class="bg-emerald-50/50 border border-emerald-100 p-5 sm:p-6 rounded-2xl space-y-3">
-                    <h4 class="font-bold text-slate-900 flex items-center gap-2">
-                        <span>📦</span> Menemukan barang?
-                    </h4>
+                    <h4 class="font-bold text-slate-900 flex items-center gap-2"><span>📦</span> Menemukan barang?</h4>
                     <p class="text-xs text-slate-600 leading-relaxed">Simpan barang dengan baik dan buat laporan barang ditemukan agar pemiliknya bisa menghubungi kamu.</p>
-                    <a href="#" class="inline-block bg-white hover:bg-slate-50 border border-slate-200 text-emerald-600 font-semibold px-4 py-2 rounded-lg text-xs transition">
-                        Laporkan Temuan
-                    </a>
+                    <a href="login.html" class="link-lapor inline-block bg-white hover:bg-slate-50 border border-slate-200 text-emerald-600 font-semibold px-4 py-2 rounded-lg text-xs transition">Laporkan Temuan</a>
                 </div>
             </div>
         </section>
 
-        <!-- 5. CARA KERJA -->
+        <!-- CARA KERJA -->
         <section id="cara-kerja" class="space-y-6 sm:space-y-8">
             <div class="space-y-2">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Cara Kerja</span>
@@ -213,7 +224,7 @@
                         <span class="text-slate-400">💬</span>
                     </div>
                     <h4 class="font-bold text-slate-900">Cocokkan lewat chat</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Buka detail barang, ajukan klaim, lalu cocokkan bukti kepemilikan dengan pelapor.</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">Login, buka detail barang, ajukan klaim, lalu cocokkan bukti kepemilikan dengan pelapor.</p>
                 </div>
                 <div class="space-y-3 bg-white p-5 rounded-2xl border border-slate-100 md:bg-transparent md:p-0 md:border-0">
                     <div class="flex items-center justify-between">
@@ -226,7 +237,7 @@
             </div>
         </section>
 
-        <!-- 6. LAPORAN TERBARU -->
+        <!-- LAPORAN TERBARU -->
         <section id="laporan-terbaru" class="space-y-6 sm:space-y-8">
             <div class="flex justify-between items-end">
                 <div class="space-y-2">
@@ -234,196 +245,159 @@
                     <h3 class="text-2xl md:text-3xl font-bold text-slate-900">Laporan terbaru</h3>
                     <p class="text-xs sm:text-sm text-slate-500">Mungkin barang yang kamu cari sudah dilaporkan teman kampus.</p>
                 </div>
-                <a href="#" class="hidden md:inline-block bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-xs transition">
+                <a href="beranda.html" class="hidden md:inline-block bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2 rounded-lg text-xs transition">
                     Lihat Semua Laporan
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm">
-                    <div class="w-full h-44 bg-slate-100 rounded-xl relative">
+                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm card-hover">
+                    <div class="w-full h-44 bg-slate-100 rounded-xl relative flex items-center justify-center text-5xl">
+                        <span>🔌</span>
                         <span class="absolute top-3 left-3 bg-amber-100 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded uppercase">Ditemukan</span>
                         <span class="absolute top-3 right-3 text-[10px] text-slate-400 bg-white/80 px-2 py-0.5 rounded">Elektronik</span>
                     </div>
                     <div class="space-y-2">
-                        <h4 class="font-bold text-slate-900">NAMA BARANG</h4>
+                        <h4 class="font-bold text-slate-900">Charger Ugreen GaN 65W</h4>
                         <p class="text-xs text-slate-500">📍 Gedung U201</p>
                         <p class="text-[10px] text-slate-400">13 Oktober 2026</p>
                     </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
+                    <a href="detail.html?id=1" onclick="return checkDetailAccess(event, 1)" class="detail-btn block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">🔒 Login untuk Lihat Detail</a>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm">
-                    <div class="w-full h-44 bg-slate-100 rounded-xl relative">
+                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm card-hover">
+                    <div class="w-full h-44 bg-slate-100 rounded-xl relative flex items-center justify-center text-5xl">
+                        <span>👛</span>
                         <span class="absolute top-3 left-3 bg-red-100 text-red-800 text-[10px] font-bold px-2.5 py-1 rounded uppercase">Hilang</span>
-                        <span class="absolute top-3 right-3 text-[10px] text-slate-400 bg-white/80 px-2 py-0.5 rounded">Aksesori</span>
+                        <span class="absolute top-3 right-3 text-[10px] text-slate-400 bg-white/80 px-2 py-0.5 rounded">Dompet</span>
                     </div>
                     <div class="space-y-2">
-                        <h4 class="font-bold text-slate-900">NAMA BARANG</h4>
+                        <h4 class="font-bold text-slate-900">Dompet Kulit Cokelat</h4>
                         <p class="text-xs text-slate-500">📍 Pendopo</p>
                         <p class="text-[10px] text-slate-400">13 Oktober 2026</p>
                     </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
+                    <a href="detail.html?id=2" onclick="return checkDetailAccess(event, 2)" class="detail-btn block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">🔒 Login untuk Lihat Detail</a>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm">
-                    <div class="w-full h-44 bg-slate-100 rounded-xl relative">
+                <div class="bg-white rounded-2xl border border-slate-100 p-4 space-y-4 shadow-sm card-hover">
+                    <div class="w-full h-44 bg-slate-100 rounded-xl relative flex items-center justify-center text-5xl">
+                        <span>🧮</span>
                         <span class="absolute top-3 left-3 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded uppercase">Dikembalikan</span>
                         <span class="absolute top-3 right-3 text-[10px] text-slate-400 bg-white/80 px-2 py-0.5 rounded">Perlengkapan kuliah</span>
                     </div>
                     <div class="space-y-2">
-                        <h4 class="font-bold text-slate-900">NAMA BARANG</h4>
+                        <h4 class="font-bold text-slate-900">Kalkulator Scientific Casio</h4>
                         <p class="text-xs text-slate-500">📍 Lab</p>
                         <p class="text-[10px] text-slate-400">12 Oktober 2026</p>
                     </div>
-                    <a href="#" class="block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">
-                        Lihat Detail
-                    </a>
+                    <a href="detail.html?id=4" onclick="return checkDetailAccess(event, 4)" class="detail-btn block text-center bg-slate-50 hover:bg-slate-100 text-blue-600 font-semibold py-2 rounded-xl text-xs transition border border-slate-100">🔒 Login untuk Lihat Detail</a>
                 </div>
             </div>
 
             <div class="text-center md:hidden pt-2">
-                <a href="#" class="inline-block bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-6 py-2.5 rounded-xl text-xs transition w-full">
+                <a href="beranda.html" class="inline-block bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-6 py-2.5 rounded-xl text-xs transition w-full">
                     Lihat Semua Laporan
                 </a>
             </div>
         </section>
 
-        <!-- 7. SECURITY TIPS -->
-        <section class="bg-emerald-50/50 border border-emerald-100 p-6 sm:p-8 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-            <div class="lg:col-span-5 space-y-3">
-                <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Peduli Barang, Jaga Sesama</span>
-                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">Bantu mengembalikan. Tetap utamakan keamanan.</h3>
-                <p class="text-xs text-slate-600 leading-relaxed">Klaim yang baik dimulai dari bukti yang sesuai, bukan dari data pribadi yang berlebihan.</p>
-            </div>
-            <div class="lg:col-span-7 space-y-4 text-xs text-slate-700">
-                <div class="flex items-start gap-3">
-                    <span class="text-emerald-600 font-bold">✓</span>
-                    <div>
-                        <p class="font-bold text-slate-900">Verifikasi sebelum menyerahkan</p>
-                        <p class="text-slate-500">Cocokkan bukti kepemilikan atau ciri khusus yang tidak ditulis di laporan publik.</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-3">
-                    <span class="text-emerald-600 font-bold">✓</span>
-                    <div>
-                        <p class="font-bold text-slate-900">Jaga informasi pribadimu</p>
-                        <p class="text-slate-500">Jangan bagikan password, OTP, alamat rumah, atau identitas lengkap. Koordinasikan lewat chat portal.</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-3">
-                    <span class="text-emerald-600 font-bold">✓</span>
-                    <div>
-                        <p class="font-bold text-slate-900">Bertemu di area publik kampus</p>
-                        <p class="text-slate-500">Pilih tempat ramai, seperti Pendopo, pada jam aktivitas kampus. Konfirmasi hanya setelah barang diterima.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. FAQ SECTION -->
+        <!-- FAQ SECTION -->
         <section id="faq" class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             <div class="lg:col-span-4 space-y-3">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Tanya Jawab</span>
                 <h3 class="text-2xl font-bold text-slate-900">Sebelum kamu mulai.</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">Hal-hal yang perlu diketahui tentang laporan dan pengembalian barang.</p>
-                <a href="#" class="text-xs font-bold text-blue-600 hover:underline inline-block pt-2">Butuh bantuan? Hubungi pengelola →</a>
             </div>
 
             <div class="lg:col-span-8 space-y-4">
                 <div class="bg-white border border-slate-100 rounded-xl p-4 sm:p-5 space-y-2">
                     <div class="flex justify-between items-center font-bold text-slate-900 text-sm">
-                        <span>Siapa yang dapat menggunakan portal ini?</span>
-                        <span class="text-slate-400">-</span>
-                    </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">Portal ini ditujukan untuk civitas Politeknik Negeri Medan yang kehilangan atau menemukan barang di lingkungan kampus.</p>
-                </div>
-                <div class="bg-white border border-slate-100 rounded-xl p-4 sm:p-5 space-y-2">
-                    <div class="flex justify-between items-center font-bold text-slate-900 text-sm">
                         <span>Apakah saya perlu login?</span>
                         <span class="text-slate-400">-</span>
                     </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">Laporan dapat dilihat tanpa login. Login atau register diperlukan untuk membuat laporan, mengajukan klaim, dan menggunakan chat.</p>
-                </div>
-                <div class="bg-white border border-slate-100 rounded-xl p-4 sm:p-5 space-y-2">
-                    <div class="flex justify-between items-center font-bold text-slate-900 text-sm">
-                        <span>Bagaimana jika barang saya belum ada?</span>
-                        <span class="text-slate-400">-</span>
-                    </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">Buat laporan Barang Hilang dengan ciri, lokasi terakhir, dan waktu kejadian. Cek kembali laporan barang ditemukan secara berkala.</p>
-                </div>
-                <div class="bg-white border border-slate-100 rounded-xl p-4 sm:p-5 space-y-2">
-                    <div class="flex justify-between items-center font-bold text-slate-900 text-sm">
-                        <span>Kapan status barang diubah menjadi Dikembalikan?</span>
-                        <span class="text-slate-400">-</span>
-                    </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">Setelah pemilik menerima barang, konfirmasikan pengembalian lewat chat dan perbarui status laporan agar informasi tetap jelas.</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">Pencarian dan daftar barang dapat dilihat tanpa login. Login atau register diperlukan untuk melihat detail barang, membuat laporan, mengonfirmasi kepemilikan, dan menggunakan chat.</p>
                 </div>
             </div>
         </section>
 
-        <!-- 9. BOTTOM CTA -->
+        <!-- BOTTOM CTA -->
         <section class="bg-blue-900 text-white rounded-3xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="space-y-2 text-center md:text-left">
                 <h3 class="text-xl sm:text-2xl md:text-3xl font-bold">Satu laporanmu bisa sangat berarti.</h3>
                 <p class="text-xs text-blue-200">Temukan barangmu atau bantu barang milik teman kembali pulang. Mulai dari langkah kecil hari ini.</p>
             </div>
             <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                <a href="#" class="w-full sm:w-auto text-center bg-white hover:bg-slate-100 text-blue-900 font-semibold px-6 py-3 rounded-xl text-xs transition">
-                    + Buat Laporan
-                </a>
-                <a href="#" class="w-full sm:w-auto text-center text-white hover:underline font-semibold px-4 py-3 text-xs flex items-center justify-center gap-1">
-                    Cari Barang →
-                </a>
+                <a href="login.html" class="link-lapor w-full sm:w-auto text-center bg-white hover:bg-slate-100 text-blue-900 font-semibold px-6 py-3 rounded-xl text-xs transition">+ Buat Laporan</a>
+                <a href="beranda.html" class="w-full sm:w-auto text-center text-white hover:underline font-semibold px-4 py-3 text-xs flex items-center justify-center gap-1">Cari Barang →</a>
             </div>
         </section>
 
     </main>
 
-    <!-- 10. FOOTER -->
+    <!-- FOOTER -->
     <footer class="bg-white border-t border-slate-100 py-8 sm:py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-12 gap-8 text-xs text-slate-500">
-            <div class="md:col-span-6 space-y-3">
-                <div class="flex items-center gap-3">
-                    <img src="logo.jpg" alt="Logo Smart Lost & Found Polmed" class="w-8 h-8 rounded-full object-cover border border-slate-200">
-                    <h4 class="font-bold text-slate-900 text-sm">Smart Lost & Found Polmed</h4>
-                </div>
-                <p class="max-w-xs">Ruang saling bantu untuk barang hilang dan ditemukan di lingkungan Politeknik Negeri Medan.</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:col-span-6 gap-8">
-                <div class="space-y-2">
-                    <h5 class="font-bold text-slate-900">Jelajahi</h5>
-                    <ul class="space-y-1.5">
-                        <li><a href="#" class="hover:text-blue-600">Cari Barang</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Buat Laporan</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Login / Register</a></li>
-                    </ul>
-                </div>
-
-                <div class="space-y-2">
-                    <h5 class="font-bold text-slate-900">Informasi</h5>
-                    <ul class="space-y-1.5">
-                        <li><a href="#" class="hover:text-blue-600">Panduan</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Privasi</a></li>
-                        <li><a href="#" class="hover:text-blue-600">Bantuan</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 mt-8 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-slate-400 text-center sm:text-left">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-slate-400 text-center sm:text-left">
             <p>© 2026 Smart Lost & Found Polmed</p>
             <p>Satu kampus, saling menjaga.</p>
         </div>
     </footer>
-    <script src="assets/js/main.js"></script>
+
+    <script>
+        function checkLoginState() {
+            const savedUser = localStorage.getItem("slf_user");
+            const menuGuest = document.getElementById("menu-guest");
+            const menuUser = document.getElementById("menu-user");
+            const authGuest = document.getElementById("auth-guest");
+            const authUser = document.getElementById("auth-user");
+            const laporLinks = document.querySelectorAll(".link-lapor");
+            const detailBtns = document.querySelectorAll(".detail-btn");
+            const detailLinks = document.querySelectorAll(".detail-link");
+
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                menuGuest.classList.add("hidden");
+                menuUser.classList.remove("hidden");
+                authGuest.classList.add("hidden");
+                authUser.classList.remove("hidden");
+                document.getElementById("user-initials").textContent = user.inisial;
+                document.getElementById("user-display-name").textContent = user.nama;
+                laporLinks.forEach(link => link.setAttribute("href", "lapor.html"));
+                detailBtns.forEach(btn => btn.textContent = "Lihat Detail");
+                detailLinks.forEach(link => link.textContent = "Lihat Detail →");
+            } else {
+                menuGuest.classList.remove("hidden");
+                menuUser.classList.add("hidden");
+                authGuest.classList.remove("hidden");
+                authUser.classList.add("hidden");
+                laporLinks.forEach(link => link.setAttribute("href", "login.html"));
+                detailBtns.forEach(btn => btn.textContent = "🔒 Login untuk Lihat Detail");
+                detailLinks.forEach(link => link.textContent = "🔒 Login untuk Detail →");
+            }
+        }
+
+        function checkDetailAccess(event, itemId) {
+            const savedUser = localStorage.getItem("slf_user");
+            if (!savedUser) {
+                event.preventDefault();
+                alert("Silakan login terlebih dahulu untuk melihat detail barang, mengonfirmasi kepemilikan, dan membuka chat.");
+                window.location.href = "login.html";
+                return false;
+            }
+            return true;
+        }
+
+        function handleLogout() {
+            localStorage.removeItem("slf_user");
+            alert("Anda telah berhasil logout.");
+            window.location.href = "index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", checkLoginState);
+    </script>
+        <!-- TOMBOL PANDUAN MELAYANG (MENGARAH KE HALAMAN INSTRUKSI PENGGUNA) -->
+    <a href="panduan.html" title="Buka Halaman Instruksi Pengguna" class="fixed bottom-5 right-5 z-40 bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-xs transition">
+        <span class="w-5 h-5 rounded-full bg-white text-blue-600 flex items-center justify-center font-extrabold">?</span>
+        <span>Panduan</span>
+    </a>
 </body>
 </html>

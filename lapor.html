@@ -7,16 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .upload-zone:hover { background-color: #eff6ff; border-color: #3b82f6; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 pb-20 md:pb-0">
 
-    <!-- NAVBAR SESUDAH LOGIN -->
+    <!-- NAVBAR -->
     <header class="bg-white border-b border-slate-100 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2">
             <a href="index.html" class="flex items-center gap-3 min-w-0">
-                <img src="assets/img/logo.jpg" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" alt="Logo" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
+                <img src="logo.jpg" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');" alt="Logo" class="w-10 h-10 rounded-full object-cover border border-slate-200 flex-shrink-0">
                 <div class="hidden w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm flex items-center justify-center flex-shrink-0">SLF</div>
                 <div class="truncate">
                     <h1 class="font-bold text-slate-900 leading-tight text-sm sm:text-base truncate">Smart Lost & Found Polmed</h1>
@@ -25,22 +27,21 @@
             </a>
 
             <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
-                <a href="index.html" class="hover:text-blue-600 transition">Beranda</a>
+                <a href="beranda.html" class="hover:text-blue-600 transition">Beranda</a>
                 <a href="laporan-saya.html" class="hover:text-blue-600 transition">Laporan Saya</a>
                 <a href="chat.html" class="hover:text-blue-600 transition">Pesan</a>
             </nav>
 
             <div class="flex items-center gap-3">
-                <a href="laporan-saya.html" title="Profil Pengguna" class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center">RA</a>
-                <a href="lapor.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold">+ Buat Laporan</a>
+                <a href="laporan-saya.html" id="user-initials" title="Profil Pengguna" class="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center">RA</a>
+                <button type="button" onclick="handleLogout()" class="text-xs font-semibold text-rose-600 hover:underline">Logout</button>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-        <!-- Breadcrumb -->
         <div class="text-xs text-slate-500 flex items-center gap-2">
-            <a href="index.html" class="hover:text-blue-600">🏠 Beranda</a>
+            <a href="beranda.html" class="hover:text-blue-600">🏠 Beranda</a>
             <span>›</span>
             <span class="text-blue-600 font-semibold">Laporkan barang</span>
         </div>
@@ -51,7 +52,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <!-- FORMULIR UTAMA (KOLOM KIRI) -->
+            <!-- FORMULIR UTAMA -->
             <form id="form-laporan" onsubmit="handleReportSubmit(event)" class="lg:col-span-8 bg-white p-5 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm space-y-6">
                 
                 <!-- 1. Jenis Laporan -->
@@ -93,10 +94,10 @@
                         </div>
                     </div>
 
-                    <!-- Unggah Foto (NFR-07: JPG/PNG maks 2 MB) -->
+                    <!-- Unggah Foto -->
                     <div class="space-y-1.5">
                         <label class="block text-xs font-semibold text-slate-700">Foto barang <span id="foto-wajib-label">*</span></label>
-                        <label for="foto-barang" class="border-2 border-dashed border-slate-200 hover:border-blue-400 rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition bg-slate-50/50">
+                        <label for="foto-barang" class="upload-zone border-2 border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition bg-slate-50/50">
                             <span class="text-2xl mb-1">☁️</span>
                             <span class="text-xs font-bold text-blue-600">Tarik foto ke sini atau pilih dari perangkat</span>
                             <span class="text-[11px] text-slate-400 mt-1">Format JPG / PNG • Maksimal 2 MB</span>
@@ -121,7 +122,7 @@
                         <p class="text-[11px] text-slate-400">Jangan tulis ciri rahasia di kolom ini karena akan tampil di halaman publik.</p>
                     </div>
 
-                    <!-- Ciri Khusus / Rahasia (NFR-08) -->
+                    <!-- Ciri Khusus / Rahasia -->
                     <div class="space-y-1.5 bg-amber-50/60 border border-amber-200/80 p-4 rounded-xl">
                         <label for="ciri-rahasia" class="block text-xs font-bold text-amber-900">🔒 Ciri khusus / rahasia (Tidak ditampilkan publik)</label>
                         <input type="text" id="ciri-rahasia" placeholder="Contoh: Ada stiker inisial DP di bagian bawah / isi kartu di dalam dompet" class="w-full bg-white border border-amber-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500">
@@ -143,15 +144,12 @@
                                 <option value="Lab">Lab</option>
                                 <option value="Bengkel">Bengkel</option>
                                 <option value="Pendopo">Pendopo</option>
-                                <option value="Perpustakaan">Perpustakaan</option>
-                                <option value="Area Umum Kampus">Area Umum Kampus</option>
                             </select>
                         </div>
 
-                        <!-- Lokasi Penyimpanan (Khusus Barang Temuan - FR-04) -->
                         <div id="box-lokasi-simpan" class="space-y-1.5">
                             <label for="lokasi-simpan" class="block text-xs font-semibold text-slate-700">Lokasi penyimpanan barang *</label>
-                            <input type="text" id="lokasi-simpan" placeholder="Contoh: Disimpan pelapor / Pos Satpam" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500">
+                            <input type="text" id="lokasi-simpan" required placeholder="Contoh: Disimpan pelapor / Pos Satpam" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                     </div>
 
@@ -181,13 +179,13 @@
                     <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl text-sm transition shadow-sm">
                         ✈️ Kirim Laporan
                     </button>
-                    <a href="index.html" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold px-5 py-3 rounded-xl text-sm transition">
+                    <a href="beranda.html" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold px-5 py-3 rounded-xl text-sm transition">
                         Batal
                     </a>
                 </div>
             </form>
 
-            <!-- SIDEBAR PANDUAN (KOLOM KANAN) -->
+            <!-- SIDEBAR PANDUAN -->
             <aside class="lg:col-span-4 space-y-4">
                 <div class="bg-white p-5 rounded-2xl border border-slate-200/80 space-y-4">
                     <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">💡 Laporan yang membantu</h4>
@@ -224,6 +222,111 @@
         </div>
     </main>
 
-    <script src="assets/js/main.js"></script>
+    <script>
+        function checkLoginState() {
+            const savedUser = localStorage.getItem("slf_user");
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                document.getElementById("user-initials").textContent = user.inisial;
+                document.getElementById("nama-pelapor").value = user.nama;
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem("slf_user");
+            alert("Anda telah berhasil logout.");
+            window.location.href = "login.html";
+        }
+
+        function setReportType(type) {
+            const hiddenInput = document.getElementById("jenis-laporan");
+            const btnHilang = document.getElementById("btn-jenis-hilang");
+            const btnTemuan = document.getElementById("btn-jenis-temuan");
+            const boxSimpan = document.getElementById("box-lokasi-simpan");
+            const inputSimpan = document.getElementById("lokasi-simpan");
+            const fotoWajibLabel = document.getElementById("foto-wajib-label");
+
+            hiddenInput.value = type;
+
+            if (type === "HILANG") {
+                btnHilang.className = "border border-blue-600 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition shadow-sm";
+                btnTemuan.className = "border border-slate-200 bg-slate-50 text-slate-700 font-semibold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition";
+                boxSimpan.classList.add("hidden");
+                inputSimpan.removeAttribute("required");
+                fotoWajibLabel.textContent = "(Opsional)";
+            } else {
+                btnTemuan.className = "border border-blue-600 bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition shadow-sm";
+                btnHilang.className = "border border-slate-200 bg-slate-50 text-slate-700 font-semibold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition";
+                boxSimpan.classList.remove("hidden");
+                inputSimpan.setAttribute("required", "true");
+                fotoWajibLabel.textContent = "*";
+            }
+        }
+
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const validTypes = ["image/jpeg", "image/png"];
+            if (!validTypes.includes(file.type)) {
+                alert("Format file tidak didukung. Harap unggah gambar JPG atau PNG.");
+                event.target.value = "";
+                return;
+            }
+            if (file.size > 2 * 1024 * 1024) {
+                alert("Ukuran file melebihi batas maksimal 2 MB.");
+                event.target.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("foto-preview-img").src = e.target.result;
+                document.getElementById("foto-preview-name").textContent = file.name;
+                document.getElementById("foto-preview-size").textContent = `${(file.size / 1024).toFixed(0)} KB • Siap diunggah`;
+                document.getElementById("foto-preview-box").classList.remove("hidden");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearPhoto() {
+            document.getElementById("foto-barang").value = "";
+            document.getElementById("foto-preview-box").classList.add("hidden");
+        }
+
+        function handleReportSubmit(event) {
+            event.preventDefault();
+            const saved = localStorage.getItem("slf_items");
+            const items = saved ? JSON.parse(saved) : [];
+            const kategori = document.getElementById("kategori-barang").value;
+            const ikonMap = { Elektronik: "🔌", Dokumen: "🪪", Kunci: "🔑", Dompet: "👛", Aksesori: "🧴", Perlengkapan: "🎒" };
+
+            const newItem = {
+                id: Date.now(),
+                nama: document.getElementById("nama-barang").value.trim(),
+                kategori: kategori,
+                lokasi: document.getElementById("lokasi-polmed").value,
+                tanggal: document.getElementById("tanggal-kejadian").value || "19-11-2026",
+                status: document.getElementById("jenis-laporan").value,
+                ikon: ikonMap[kategori] || "📦",
+                deskripsi: document.getElementById("deskripsi-publik").value.trim(),
+                penyimpanan: document.getElementById("lokasi-simpan").value.trim() || "Disimpan pelapor",
+                pelapor: document.getElementById("nama-pelapor").value.trim()
+            };
+
+            items.unshift(newItem);
+            localStorage.setItem("slf_items", JSON.stringify(items));
+
+            alert("Laporan berhasil disimpan! Sistem menjalankan pencocokan otomatis (Smart Matching).");
+            window.location.href = "laporan-saya.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", checkLoginState);
+    </script>
+        <!-- TOMBOL PANDUAN MELAYANG (MENGARAH KE HALAMAN INSTRUKSI PENGGUNA) -->
+    <a href="panduan.html" title="Buka Halaman Instruksi Pengguna" class="fixed bottom-5 right-5 z-40 bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-3 rounded-full shadow-lg flex items-center gap-2 text-xs transition">
+        <span class="w-5 h-5 rounded-full bg-white text-blue-600 flex items-center justify-center font-extrabold">?</span>
+        <span>Panduan</span>
+    </a>
 </body>
 </html>
